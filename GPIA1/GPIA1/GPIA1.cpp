@@ -9,13 +9,13 @@ using namespace std;
 // longlong(__int64) : 8
 
 int hp;
-int maxHp;
+short mp;
 
 int main()
 {
-    maxHp = 200;
+	mp = 30000;
 
-    hp = maxHp;
+	mp += 20000;
 
-    cout << hp;
+	cout << mp;
 }
