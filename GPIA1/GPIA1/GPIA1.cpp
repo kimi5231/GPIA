@@ -3,19 +3,12 @@ using namespace std;
 
 // [타입] [이름];
 
-// char : 1
-// short : 2
-// int : 4
-// longlong(__int64) : 8
-
-int hp;
-short mp;
+float speed;
+double speed2;
+bool playSound;
 
 int main()
 {
-	mp = 30000;
-
-	mp += 20000;
-
-	cout << mp;
+	playSound = false;
+	playSound = true;
 }
