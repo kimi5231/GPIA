@@ -1,16 +1,17 @@
 ﻿// GPIA.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
+#include "pch.h"
 #include "framework.h"
 #include "GPIA.h"
+#include "Game.h"
 
 #define MAX_LOADSTRING 100
 
-int mousePosX;
-int mousePosY;
 
 // 전역 변수:
-HINSTANCE hInst;                                // 현재 인스턴스입니다.
+HINSTANCE hInst;
+HWND g_hWnd;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -29,6 +30,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (!InitInstance (hInstance, nCmdShow))
         return FALSE;
 
+    Game game;
+    game.Init(g_hWnd);
+
     MSG msg;
 
     // 3) 메인 루프
@@ -36,10 +40,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // - 로직
     // - 렌더링
 
-    while (::GetMessage(&msg, nullptr, 0, 0))
+    while (msg.message != WM_QUIT)
     {
-        ::TranslateMessage(&msg);
-        ::DispatchMessage(&msg);
+        if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            ::TranslateMessage(&msg);
+            ::DispatchMessage(&msg);
+        }
+        else
+        {
+            // 게임
+            game.Update();
+            game.Render();
+        }
     }
 
     return (int) msg.wParam;
@@ -93,6 +106,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    HWND hWnd = CreateWindowW(L"KEY", L"GPIA", WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, nullptr, nullptr, hInstance, nullptr);
+
+   g_hWnd = hWnd;
 
    if (!hWnd)
    {
