@@ -24,12 +24,17 @@ int main()
 	hp += 5;
 
 	hp = hp - 5;
-	hp += 5;
+	hp -= 5;
 
 	hp = hp * 5;
-	hp += 5;
+	hp *= 5;
 
 	hp = hp / 5;
+	hp /= 5;
 
 	hp = hp % 5;
+	hp %= 5;
+
+	hp++;
+	++hp;
 }
