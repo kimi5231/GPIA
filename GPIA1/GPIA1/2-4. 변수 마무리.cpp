@@ -1,14 +1,22 @@
-ï»¿#include <iostream>
+#include <iostream>
 using namespace std;
 
-// [íƒ€ì…] [ì´ë¦„];
+// [Å¸ÀÔ] [ÀÌ¸§];
+
+// ¹®ÀÚ
+char ch;
 
 float speed;
 double speed2;
+
 bool playSound;
 
 int main()
 {
+	speed = 3.5f;
+
 	playSound = false;
 	playSound = true;
+
+	cout << speed;
 }
