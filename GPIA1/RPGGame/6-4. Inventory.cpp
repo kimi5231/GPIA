@@ -1,4 +1,5 @@
 #include "6-4. Inventory.h"
+#include "6-2. Item.h"
 
 Inventory* Inventory::s_instance = nullptr;
 

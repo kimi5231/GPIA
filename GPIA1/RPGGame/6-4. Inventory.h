@@ -1,5 +1,6 @@
 #pragma once
-#include "6-2. Item.h"
+
+class Item;
 
 enum
 {
