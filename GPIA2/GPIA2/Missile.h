@@ -1,11 +1,11 @@
 #pragma once
-#include "Scene.h"
+#include "Object.h"
 
-class GameScene : public Scene
+class Missile : public Object
 {
 public:
-	GameScene();
-	virtual ~GameScene() override;
+	Missile();
+	virtual ~Missile() override;
 
 	virtual void Init() override;
 	virtual void Update() override;
