@@ -14,6 +14,13 @@ using namespace std;
 // C++이 늘 그렇지만 되는 일이 없고 또 크래시가 납니다.
 // 뭐가 문제일까요?
 
+// [Solution]
+// 중간에 기사가 죽으면서 기사의 메모리를 해제하는데
+// 이때, 기사 메모리 해제 후, 기사를 가리키던 knight는 nullptr로 만들지만,
+// arrows의 _target들은 nullptr이 아니게 되므로 계속해서
+// 사라지 기사를 향해 공격을 하게 되면서 크래시가 발생.
+// 남은 화살들의 _target도 nullptr로 만들어 문제 해결.
+
 int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -47,6 +54,8 @@ int main()
 			{
 				delete knight;
 				knight = nullptr;
+				for (int j = i; j < 10; ++j)
+					arrows[j]->_target = nullptr;
 			}
 		}	
 

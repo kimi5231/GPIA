@@ -8,7 +8,14 @@ Knight::Knight() : _hp(100), _attack(10)
 
 }
 
-Knight::Knight(int hp) : _hp(hp)
+// Before
+//Knight::Knight(int hp) : _hp(hp)
+//{
+//
+//}
+
+// After
+Knight::Knight(int hp) : _hp(hp), _attack(10)
 {
 
 }

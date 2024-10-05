@@ -26,6 +26,16 @@ using namespace std;
 // x86으로 바꿔서 실행하시길 추천 드립니다!
 // 위쪽에서 [Debug][x86] 설정
 
+// [Solution]
+// Player와 Archer의 소멸자를 가상 함수로 만들지 않아
+// Player를 생성하고 메모리를 해제할 때,
+// Archer의 소멸자가 제대로 호출되지 않아
+// 펫의 메모리 해제가 이루어지지 않음.
+// 따라서, 메모리가 부족해져 크래시 발생.
+// Player와 Archer의 소멸자를 가상함수로 만들어 해결.
+// + Player 소멸자에만 virtual을 붙여도 되지만,
+// 명확함을 위해 Archer 소멸자에도 붙임.
+
 int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));

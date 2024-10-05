@@ -14,6 +14,11 @@ using namespace std;
 // 가만히 있으면 중간은 간다던데...
 // 뭐가 문제일까요?
 
+// [Solution]
+// 펫을 동적할당이 아닌 지역 변수로 만들어 넘겼는데
+// Archer 소멸자에서 펫의 메모리 해제를 시도하여 크래시 발생.
+// 펫을 동적할당으로 생성하여 문제 해결.
+
 int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -36,10 +41,14 @@ int main()
 			{
 				// 여기서 같이 만들어준다
 				// 이런 저런 펫 정보 추가될 예정
-				Pet pet;
+				// Before
+				//Pet pet;
+
+				// After
+				Pet* pet = new Pet();
 
 				// Archer를 만들 때 pet 정보도 넘겨준다
-				p = new Archer(&pet);
+				p = new Archer(pet);
 				p->_hp = 100;
 				p->_attack = 100;
 

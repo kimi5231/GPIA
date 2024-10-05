@@ -25,7 +25,11 @@ void Knight::AddHp(int value)
 
 bool Knight::IsDead()
 {
-	return (_hp == 0);
+	// Before
+	//return (_hp == 0);
+
+	// After
+	return (_hp <= 0);
 }
 
 void Knight::PrintInfo()
