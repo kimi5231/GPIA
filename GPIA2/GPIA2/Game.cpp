@@ -23,6 +23,13 @@ void Game::Init(HWND hwnd)
 	// 도화지 번호
 	_hdc = ::GetDC(hwnd);
 
+	::GetClientRect(hwnd, &_rect);
+
+	_hdcBack = ::CreateCompatibleDC(_hdc); // _hdc와 호환되는 DC를 생성
+	_bmpBack = ::CreateCompatibleBitmap(_hdc, _rect.right, _rect.bottom); // _hdc와 호환되는 비트맵 생성
+	HBITMAP prev = (HBITMAP)::SelectObject(_hdcBack, _bmpBack); // DC와 BMP 연결
+	::DeleteObject(prev);
+
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
 	GET_SINGLE(SceneManager)->Init();
@@ -45,13 +52,17 @@ void Game::Render()
 	{
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
-		::TextOut(_hdc, 10, 10, str.c_str(), static_cast<int32>(str.size()));
+		::TextOut(_hdcBack, 10, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
 
 	{
 		wstring str = std::format(L"FPS({0}), DT({1}) ms", fps, static_cast<int32>(deltaTime * 1000));
-		::TextOut(_hdc, 650, 10, str.c_str(), static_cast<int32>(str.size()));
+		::TextOut(_hdcBack, 650, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
 
-	GET_SINGLE(SceneManager)->Render(_hdc);
+	GET_SINGLE(SceneManager)->Render(_hdcBack);
+
+	// Double Buffering
+	::BitBlt(_hdc, 0, 0, _rect.right, _rect.bottom, _hdcBack, 0, 0, SRCCOPY); // 비트 불릿 : 고속 복사
+	::PatBlt(_hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
 }
