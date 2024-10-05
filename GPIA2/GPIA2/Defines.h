@@ -11,3 +11,10 @@ public:										\
 	}
 
 #define GET_SINGLE(classname)	classname::GetInstance()
+
+#define SAFT_DELETE(ptr)	\
+	if (ptr)				\
+	{						\
+		delete ptr;			\
+		ptr = nullptr;		\
+	}

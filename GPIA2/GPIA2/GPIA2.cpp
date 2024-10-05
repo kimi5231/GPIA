@@ -1,9 +1,9 @@
 ﻿// GPIA2.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
+#include "pch.h"
 #include "framework.h"
 #include "GPIA2.h"
-#include "pch.h"
 #include "Game.h"
 
 #define MAX_LOADSTRING 100
@@ -155,8 +155,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
             ::EndPaint(hWnd, &ps);
         }
         break;
