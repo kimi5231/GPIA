@@ -1,17 +1,16 @@
-﻿// GPIA.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+﻿// GPIA2.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "pch.h"
 #include "framework.h"
-#include "GPIA.h"
-#include "Game.h"
+#include "GPIA2.h"
 
 #define MAX_LOADSTRING 100
 
+int mousePosX;
+int mousePosY;
 
 // 전역 변수:
-HINSTANCE hInst;
-HWND g_hWnd;
+HINSTANCE hInst;                                // 현재 인스턴스입니다.
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -28,31 +27,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 2) 윈도우 창 생성
     if (!InitInstance (hInstance, nCmdShow))
+    {
         return FALSE;
-
-    Game game;
-    game.Init(g_hWnd);
+    }
 
     MSG msg;
 
     // 3) 메인 루프
-    // - 입력
-    // - 로직
-    // - 렌더링
-
-    while (msg.message != WM_QUIT)
+    while (::GetMessage(&msg, nullptr, 0, 0))
     {
-        if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-        {
-            ::TranslateMessage(&msg);
-            ::DispatchMessage(&msg);
-        }
-        else
-        {
-            // 게임
-            game.Update();
-            game.Render();
-        }
+       ::TranslateMessage(&msg);
+       ::DispatchMessage(&msg); 
     }
 
     return (int) msg.wParam;
@@ -76,12 +61,11 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GPIA));
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GPIA2));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName = nullptr;
-    // 윈도우 생성에 필요한 키 값
-    wcex.lpszClassName  = L"KEY";
+    wcex.lpszClassName = L"GPIA2";
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
@@ -104,10 +88,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    RECT windowRect = { 0, 0, 800, 600 };
    ::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
 
-   HWND hWnd = CreateWindowW(L"KEY", L"GPIA", WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(L"GPIA2", L"Client", WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, nullptr, nullptr, hInstance, nullptr);
-
-   g_hWnd = hWnd;
 
    if (!hWnd)
    {
@@ -176,7 +158,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEMOVE:
         mousePosX = LOWORD(lParam);
         mousePosY = HIWORD(lParam);
-        ::InvalidateRect(hWnd, nullptr, true);
+        ::InvalidateRect(hWnd, nullptr, TRUE);
         break;
     case WM_DESTROY:
         ::PostQuitMessage(0);
