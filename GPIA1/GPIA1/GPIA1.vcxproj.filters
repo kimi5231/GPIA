@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\2">
+      <UniqueIdentifier>{1d9a3cac-116d-47ca-9bbd-198c30ba8601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\3">
+      <UniqueIdentifier>{caabab09-62a5-4b6a-a7ac-4c6248978609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\4">
+      <UniqueIdentifier>{b761314e-7a58-4e51-acd4-6867fa9a59c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\5">
+      <UniqueIdentifier>{3be78ff2-309c-44df-baba-3ae9be81f69f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\6">
+      <UniqueIdentifier>{98ca3fbe-9bdb-499a-8d15-fe729a764b33}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="2-5. 산술 연산.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-2. 변수 기초.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-4. 변수 마무리.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-3. 정수의 원리.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-6. 비교 연산과 논리 연산.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-7. 분기문.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-8. 반복문.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-9. 연습 문제.cpp">
+      <Filter>소스 파일\2</Filter>
+    </ClCompile>
+    <ClCompile Include="3-1. 함수 기초.cpp">
+      <Filter>소스 파일\3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-2. 스택 메모리와 스택 프레임.cpp">
+      <Filter>소스 파일\3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-4. TextRPG.cpp">
+      <Filter>소스 파일\3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-5. 파일 분할.cpp">
+      <Filter>소스 파일\3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-5. Helper.cpp">
+      <Filter>소스 파일\3</Filter>
+    </ClCompile>
+    <ClCompile Include="4-1. 배열 기초.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-2. 배열 실습.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-2. Helper.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-2. Map.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-2. Player.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-3. 포인터 기초.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-4. 포인터 연산.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-4. TextRPG.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-5. 문자열.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-6. 참조.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-7. 로또 번호 생성기.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="4-8. 달팽이 문제.cpp">
+      <Filter>소스 파일\4</Filter>
+    </ClCompile>
+    <ClCompile Include="5-1. 객체지향 개론.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-1. Player.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-2. 상속성.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-3. 은닉성.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-4. 다형성.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-5. 멤버 변수 초기화.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-6. 연산자 오버로딩.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-7. static과 싱글톤.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="5-8. 객체지향 마무리.cpp">
+      <Filter>소스 파일\5</Filter>
+    </ClCompile>
+    <ClCompile Include="6-1. 동적 할당.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-3. C 스타일 캐스팅.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-5. virtual 소멸자.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-7. 얕은 복사 vs 깊은 복사.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-6. A.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-6. B.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-8. 캐스팅 4총사.cpp">
+      <Filter>소스 파일\6</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3-5. Helper.h">
+      <Filter>소스 파일\3</Filter>
+    </ClInclude>
+    <ClInclude Include="4-2. Helper.h">
+      <Filter>소스 파일\4</Filter>
+    </ClInclude>
+    <ClInclude Include="4-2. Map.h">
+      <Filter>소스 파일\4</Filter>
+    </ClInclude>
+    <ClInclude Include="4-2. Player.h">
+      <Filter>소스 파일\4</Filter>
+    </ClInclude>
+    <ClInclude Include="5-1. Player.h">
+      <Filter>소스 파일\5</Filter>
+    </ClInclude>
+    <ClInclude Include="6-6. A.h">
+      <Filter>소스 파일\6</Filter>
+    </ClInclude>
+    <ClInclude Include="6-6. B.h">
+      <Filter>소스 파일\6</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
