@@ -1,18 +1,16 @@
 #pragma once
 #include "Object.h"
 
-class Monster : public Object
+class Bullet : public Object
 {
 public:
-	Monster();
-	virtual ~Monster() override;
+	Bullet();
+	virtual ~Bullet() override;
 
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-private:
-	Vector _lookPos = {};
-	Vector _lookDir = {};
+	Pos GetFirePos();
 };
 
