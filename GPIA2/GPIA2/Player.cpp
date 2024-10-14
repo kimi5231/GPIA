@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "Bullet.h"
 #include "LineMesh.h"
+#include "UIManager.h"
 
 Player::Player() : Object(ObjectType::Player)
 {
@@ -33,6 +34,8 @@ void Player::Update()
 	if (!_playerTurn)
 		return;
 
+	UpdateFireAngle();
+
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::A))
 	{
 		_pos.x -= _stat.speed * deltaTime;
@@ -47,12 +50,12 @@ void Player::Update()
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
 	{
-		//_pos.y -= _stat.speed * deltaTime;
+		_fireAngle = ::clamp(_fireAngle + 50 * deltaTime, 0.f, 75.f);
 	}
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::S))
 	{
-		//_pos.y += _stat.speed * deltaTime;
+		_fireAngle = ::clamp(_fireAngle - 50 * deltaTime, 0.f, 75.f);
 	}
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Q))
@@ -67,7 +70,24 @@ void Player::Update()
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::SpaceBar))
 	{
-	
+		float percent = GET_SINGLE(UIManager)->GetPowerPercent();
+		percent = min(100, percent + 100 * deltaTime);
+		GET_SINGLE(UIManager)->SetPowerPercent(percent);
+
+	}
+
+	if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::SpaceBar))
+	{
+		_playerTurn = false;
+
+		float percent = GET_SINGLE(UIManager)->GetPowerPercent();
+		float speed = 10.f * percent;
+		float angle = GET_SINGLE(UIManager)->GetBarrelAngle();
+
+		Bullet* bullet = GET_SINGLE(ObjectManager)->CreateObject<Bullet>();
+		bullet->SetPos(_pos);
+		bullet->SetSpeed(Vector{ speed * ::cos(angle * PI / 180), -1 * speed * ::sin(angle * PI / 180)});
+		GET_SINGLE(ObjectManager)->Add(bullet);
 	}
 }
 
@@ -90,6 +110,23 @@ void Player::Render(HDC hdc)
 		}
 	}
 
+	if (_playerTurn)
+	{
+		RECT rect;
+		rect.bottom = static_cast<LONG>(_pos.y - 60);
+		rect.left = static_cast<LONG>(_pos.x + 10);
+		rect.right = static_cast<LONG>(_pos.x - 10);
+		rect.top = static_cast<LONG>(_pos.y - 80);
+
+		HBRUSH brush = ::CreateSolidBrush(RGB(250, 236, 197));
+		HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, brush);
+
+		::Ellipse(hdc, rect.left, rect.top, rect.right, rect.bottom);
+
+		::SelectObject(hdc, oldBrush);
+		::DeleteObject(brush);
+	}
+
 	HPEN pen = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	HPEN oldPen = (HPEN)::SelectObject(hdc, pen);
 
@@ -105,4 +142,18 @@ wstring Player::GetMeshKey()
 		return L"MissileTank";
 	
 	return L"CanonTank";
+}
+
+void Player::UpdateFireAngle()
+{
+	if (_dir == Dir::Left)
+	{
+		GET_SINGLE(UIManager)->SetPlayerAngle(180);
+		GET_SINGLE(UIManager)->SetBarrelAngle(180 - _fireAngle);
+	}
+	else
+	{
+		GET_SINGLE(UIManager)->SetPlayerAngle(0);
+		GET_SINGLE(UIManager)->SetBarrelAngle(_fireAngle);
+	}
 }

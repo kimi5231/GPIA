@@ -11,6 +11,9 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	Pos GetFirePos();
+	void SetSpeed(Vector speed) { _speed = speed; }
+
+public:
+	Vector _speed{};
 };
 
