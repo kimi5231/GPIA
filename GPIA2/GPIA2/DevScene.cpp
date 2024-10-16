@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Actor.h"
 
 DevScene::DevScene()
 {
@@ -17,7 +18,6 @@ DevScene::~DevScene()
 void DevScene::Init()
 {
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Stage01", L"Sprite\\Map\\Stage01.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Sword", L"Sprite\\Item\\Sword.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Potion", L"Sprite\\UI\\Mp.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PlayerDown", L"Sprite\\Player\\PlayerDown.bmp", RGB(128, 128, 128));
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PlayerUP", L"Sprite\\Player\\PlayerUp.bmp", RGB(128, 128, 128));
@@ -29,11 +29,18 @@ void DevScene::Init()
 
 	Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Start");
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_On", tex, 150, 0, 150, 150);
+
+	{
+		Actor* actor = new Actor();
+		_actor = actor;
+	}
 }
 
 void DevScene::Update()
 {
-	
+	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+
+	_actor->Update();
 }
 
 void DevScene::Render(HDC hdc)
