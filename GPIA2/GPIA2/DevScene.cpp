@@ -5,7 +5,11 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 #include "Sprite.h"
-#include "Actor.h"
+#include "SpriteActor.h"
+#include "Player.h"
+#include "GameObject.h"
+#include "SpriteRenderer.h"
+#include "PlayerMoveScript.h"
 
 DevScene::DevScene()
 {
@@ -27,26 +31,70 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
 
-	Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Start");
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_On", tex, 150, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_Off", GET_SINGLE(ResourceManager)->GetTexture(L"Start"), 0, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_On", GET_SINGLE(ResourceManager)->GetTexture(L"Start"), 150, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Edit_Off", GET_SINGLE(ResourceManager)->GetTexture(L"Edit"), 0, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Edit_On", GET_SINGLE(ResourceManager)->GetTexture(L"Edit"), 150, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exit_Off", GET_SINGLE(ResourceManager)->GetTexture(L"Exit"), 0, 0, 150, 150);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exit_On", GET_SINGLE(ResourceManager)->GetTexture(L"Exit"), 150, 0, 150, 150);
 
 	{
-		Actor* actor = new Actor();
-		_actor = actor;
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Stage01");
+
+		SpriteActor* background = new SpriteActor();
+		background->SetSprite(sprite);
+		const Vec2Int size = sprite->GetSize();
+		background->SetPos(Vec2(size.x/2, size.y/2));
+		_background = background;
 	}
+
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Start_On");
+
+		Player* player = new Player();
+		player->SetSprite(sprite);
+		const Vec2Int size = sprite->GetSize();
+		player->SetPos(Vec2(size.x / 2, size.y / 2));
+		_player = player;
+	}
+
+	{
+		GameObject* player = new GameObject();
+		player->SetPos({ 500, 500 });
+
+		{
+			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Start_On");
+			SpriteRenderer* sr = new SpriteRenderer();
+			sr->SetSprite(sprite);
+			player->AddComponent(sr);
+		}
+
+		{
+			PlayerMoveScript* sr = new PlayerMoveScript();
+			player->AddComponent(sr);
+		}
+
+		_go = player;
+	}
+
+	_background->BeginPlay();
+	_player->BeginPlay();
+	_go->Start();
 }
 
 void DevScene::Update()
 {
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
-	_actor->Update();
+	_background->Tick();
+	_player->Tick();
+	_go->Update();
 }
 
 void DevScene::Render(HDC hdc)
 {
-	//Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Stage01");
-	Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Start_On");
-
-	::BitBlt(hdc, 0, 0, GWinSizeX, GWinSizeY, sprite->GetDC(), sprite->GetPos().x, sprite->GetPos().y, SRCCOPY);
+	_background->Render(hdc);
+	_player->Render(hdc);
+	_go->Render(hdc);
 }

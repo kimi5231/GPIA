@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 class Actor;
+class GameObject;
 
 class DevScene : public Scene
 {
@@ -14,6 +15,9 @@ public:
 	virtual void Render(HDC hdc) override;
 
 private:
-	Actor* _actor;
+	Actor* _background;
+	Actor* _player;
+
+	GameObject* _go;
 };
 
