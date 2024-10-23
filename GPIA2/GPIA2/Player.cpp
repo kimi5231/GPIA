@@ -5,6 +5,7 @@
 #include "TimeManager.h"
 #include "Flipbook.h"
 #include "CameraComponent.h"
+#include "Collider.h"
 
 Player::Player()
 {
@@ -59,4 +60,12 @@ void Player::Tick()
 void Player::Render(HDC hdc)
 {
 	Super::Render(hdc);
+}
+
+void Player::OnComponentBeginOverlap(Collider* collider, Collider* other)
+{
+}
+
+void Player::OnComponentEndOverlap(Collider* collider, Collider* other)
+{
 }

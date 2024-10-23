@@ -36,6 +36,15 @@
     <Filter Include="소스 파일\05. Component">
       <UniqueIdentifier>{9b357866-93a1-4de2-a3f2-483cd62e155c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\05. Component\Game">
+      <UniqueIdentifier>{71fe0c38-10f4-4a6e-b1dc-afd55fa09f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05. Component\Camera">
+      <UniqueIdentifier>{6efe8f7b-8ae5-41c0-889a-aa891d8798e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05. Component\Collision">
+      <UniqueIdentifier>{649b0ecf-eb33-4836-8f76-eecb698eb2ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GPIA2.h">
@@ -70,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>소스 파일\01. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>소스 파일\99. Headers</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>소스 파일\01. Manager</Filter>
@@ -123,7 +129,22 @@
       <Filter>소스 파일\03. Objects\Unreal</Filter>
     </ClInclude>
     <ClInclude Include="CameraComponent.h">
-      <Filter>소스 파일\05. Component</Filter>
+      <Filter>소스 파일\05. Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +225,19 @@
       <Filter>소스 파일\03. Objects\Unreal</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
-      <Filter>소스 파일\05. Component</Filter>
+      <Filter>소스 파일\05. Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>소스 파일\05. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
