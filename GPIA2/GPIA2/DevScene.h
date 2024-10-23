@@ -17,4 +17,3 @@ public:
 private:
 	vector<Actor*> _actors;
 };
-
