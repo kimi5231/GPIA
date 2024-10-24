@@ -30,7 +30,5 @@ protected:
 
 public:
 	unordered_set<Collider*> _collisionMap;
-
-	uint32 _flag = 0;
 };
 

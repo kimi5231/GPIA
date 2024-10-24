@@ -79,8 +79,5 @@ bool Collider::CheckToCollisionSphere2Sphere(SphereCollider* s1, SphereCollider*
 	Vec2 dir = p1 - p2;
 	float dist = dir.Length();
 
-	if (dist <= r1 + r2)
-		return true;
-
-	return false;
+	return dist <= r1 + r2;
 }
