@@ -1,12 +1,9 @@
 #pragma once
 #include "Scene.h"
 
-class Actor;
-class GameObject;
-class UI;
-
 class DevScene : public Scene
 {
+	using Super = Scene;
 public:
 	DevScene();
 	virtual ~DevScene() override;
@@ -15,10 +12,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void AddActor(Actor* actor);
-	void RemoveActor(Actor* actor);
+	void Clear();
 
-private:
-	vector<Actor*> _actors[LAYER_MAXCOUNT];
-	vector<UI*> _uis;
+	class TilemapActor* _tilemapActor = nullptr;
 };

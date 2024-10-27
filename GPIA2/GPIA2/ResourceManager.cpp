@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Flipbook.h"
+#include "Tilemap.h"
 
 ResourceManager::~ResourceManager()
 {
@@ -24,13 +25,23 @@ void ResourceManager::Clear()
 	for (auto& item : _textures)
 		SAFT_DELETE(item.second);
 
+	_textures.clear();
+
 	for (auto& item : _sprites)
 		SAFT_DELETE(item.second);
+
+	_sprites.clear();
 
 	for (auto& item : _flipbooks)
 		SAFT_DELETE(item.second);
 
-	_textures.clear();
+	_flipbooks.clear();
+
+	for (auto& item : _tilemaps)
+		SAFT_DELETE(item.second);
+
+	_tilemaps.clear();
+
 }
 
 Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, uint32 transparent)
@@ -74,4 +85,23 @@ Flipbook* ResourceManager::CreateFlipbook(const wstring& key)
 	_flipbooks[key] = fb;
 
 	return fb;
+}
+
+Tilemap* ResourceManager::CreateTilemap(const wstring& key)
+{
+	if (_tilemaps.find(key) != _tilemaps.end())
+		return _tilemaps[key];
+
+	Tilemap* tm = new Tilemap();
+	_tilemaps[key] = tm;
+	return tm;
+}
+
+void ResourceManager::SaveTilemap(const wstring& key, const wstring& path)
+{
+}
+
+Tilemap* ResourceManager::LoadTilemap(const wstring& key, const wstring& path)
+{
+	return nullptr;
 }
