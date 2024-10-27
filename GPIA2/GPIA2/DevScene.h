@@ -3,6 +3,7 @@
 
 class Actor;
 class GameObject;
+class UI;
 
 class DevScene : public Scene
 {
@@ -19,4 +20,5 @@ public:
 
 private:
 	vector<Actor*> _actors[LAYER_MAXCOUNT];
+	vector<UI*> _uis;
 };

@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <string>
 #include <algorithm>
+#include <functional>
 
 #include "Types.h"
 #include "Defines.h"
