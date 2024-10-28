@@ -32,7 +32,13 @@ bool Collider::CheckCollision(Collider* other)
 
 bool Collider::CheckToCollisionBox2Box(BoxCollider* b1, BoxCollider* b2)
 {
-	Vec2 p1 = b1->GetOwner()->GetPos();
+	RECT r1 = b1->GetRect();
+	RECT r2 = b2->GetRect();
+
+	RECT intersect{};
+	return ::IntersectRect(&intersect, &r1, &r2);
+
+	/*Vec2 p1 = b1->GetOwner()->GetPos();
 	Vec2 s1 = b1->GetSize();
 
 	Vec2 p2 = b2->GetOwner()->GetPos();
@@ -60,7 +66,7 @@ bool Collider::CheckToCollisionBox2Box(BoxCollider* b1, BoxCollider* b2)
 	if (maxY_1 < minY_2)
 		return false;
 
-	return true;
+	return true;*/
 }
 
 bool Collider::CheckToCollisionSphere2Box(SphereCollider* s1, BoxCollider* b2)

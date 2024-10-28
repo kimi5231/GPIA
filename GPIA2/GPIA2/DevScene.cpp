@@ -95,7 +95,7 @@ void DevScene::Init()
 		AddActor(player);
 	}
 
-	/*{
+	{
 		Actor* test = new Actor();
 		test->SetLayer(LAYER_OBJECT);
 		test->SetPos({ 300, 200 });
@@ -106,9 +106,9 @@ void DevScene::Init()
 		test->AddComponent(collider);
 
 		AddActor(test);
-	}*/
+	}
 
-	{
+	/*{
 		TilemapActor* actor = new TilemapActor();
 		AddActor(actor);
 		_tilemapActor = actor;
@@ -120,16 +120,16 @@ void DevScene::Init()
 			_tilemapActor->SetTilemap(tm);
 			_tilemapActor->SetShowDebug(true);
 		}
-	}
+	}*/
 
-	{
-		GET_SINGLE(ResourceManager)->LoadSound(L"BGM", L"Sound\\BGM.wav");
-		
-		Sound* sound = GET_SINGLE(ResourceManager)->GetSound(L"BGM");
-		sound->Play(true);
+	//{
+	//	GET_SINGLE(ResourceManager)->LoadSound(L"BGM", L"Sound\\BGM.wav");
+	//	
+	//	Sound* sound = GET_SINGLE(ResourceManager)->GetSound(L"BGM");
+	//	sound->Play(true);
 
-		//GET_SINGLE(SoundManager)->Play(L"BGM");
-	}
+	//	//GET_SINGLE(SoundManager)->Play(L"BGM");
+	//}
 
 	Super::Init();
 }
