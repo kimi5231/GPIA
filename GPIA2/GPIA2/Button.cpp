@@ -40,7 +40,7 @@ void Button::Tick()
 
 	if (IsMouesInRect())
 	{
-		if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
 		{
 			SetButtonState(BS_Pressed);
 		}

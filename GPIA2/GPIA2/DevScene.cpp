@@ -89,6 +89,11 @@ void DevScene::Init()
 		{
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize({ 100, 100 });
+			collider->SetCollisionLayerType(CLT_OBJECT);
+
+			collider->ResetCollisionFlag();
+			collider->AddCollisionFlagLayer(CLT_GROUND);
+
 			player->AddComponent(collider);
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -99,12 +104,27 @@ void DevScene::Init()
 		Actor* test = new Actor();
 		test->SetLayer(LAYER_OBJECT);
 		test->SetPos({ 300, 200 });
-		BoxCollider* collider = new BoxCollider();
-		collider->SetSize({ 100, 100 });
-		
-		GET_SINGLE(CollisionManager)->AddCollider(collider);
-		test->AddComponent(collider);
+		{
+			BoxCollider* collider = new BoxCollider();
+			collider->SetSize({ 100, 100 });
+			collider->SetCollisionLayerType(CLT_OBJECT);
+			GET_SINGLE(CollisionManager)->AddCollider(collider);
+			test->AddComponent(collider);
+		}
+		AddActor(test);
+	}
 
+	{
+		Actor* test = new Actor();
+		test->SetLayer(LAYER_OBJECT);
+		test->SetPos({ 200, 400 });
+		{
+			BoxCollider* collider = new BoxCollider();
+			collider->SetSize({ 10000, 100 });
+			collider->SetCollisionLayerType(CLT_GROUND);
+			GET_SINGLE(CollisionManager)->AddCollider(collider);
+			test->AddComponent(collider);
+		}
 		AddActor(test);
 	}
 
