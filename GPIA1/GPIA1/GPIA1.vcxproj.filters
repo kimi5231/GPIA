@@ -24,6 +24,9 @@
     <Filter Include="소스 파일\6">
       <UniqueIdentifier>{98ca3fbe-9bdb-499a-8d15-fe729a764b33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\7">
+      <UniqueIdentifier>{66f4ddc4-18a1-4137-9226-c25a3b40daa9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2-5. 산술 연산.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="6-8. 캐스팅 4총사.cpp">
       <Filter>소스 파일\6</Filter>
+    </ClCompile>
+    <ClCompile Include="7-2. 연결 리스트.cpp">
+      <Filter>소스 파일\7</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
