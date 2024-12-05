@@ -25,7 +25,10 @@
     <ClCompile Include="15-8. 데드락.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="이벤트와 조건 변수.cpp">
+    <ClCompile Include="15-9. 이벤트와 조건 변수.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="15-10. 스마트 포인터.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
