@@ -9,7 +9,9 @@ int main()
 
 	// 1) 소켓 생성
 	// IPv4, TCP
-	SOCKET listenSocket = ::socket(AF_INET, SOCK_STREAM, 0);
+	//SOCKET listenSocket = ::socket(AF_INET, SOCK_STREAM, 0);
+	// UDP
+	SOCKET listenSocket = ::socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (listenSocket == INVALID_SOCKET)
 		return 0;
 
@@ -24,8 +26,8 @@ int main()
 		return 0;
 
 	// 3) listen
-	if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR)
-		return 0;
+	/*if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR)
+		return 0;*/
 
 	// 4) accept
 	while (true)
@@ -34,28 +36,30 @@ int main()
 		::memset(&clientAddr, 0, sizeof(clientAddr));
 		int32 addrLen = sizeof(clientAddr);
 
-		SOCKET clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
+		/*SOCKET clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
 		if (clientSocket == INVALID_SOCKET)
-			return 0;
+			return 0;*/
 
-		char ip[16];
+		/*char ip[16];
 		::inet_ntop(AF_INET, &clientAddr.sin_addr, ip, sizeof(ip));
-		cout << "Client Connected! IP = " << ip << endl;
+		cout << "Client Connected! IP = " << ip << endl;*/
 
 		// 5) 통신
-		while(true)
+		//while(true)
 		{
 			char recvBuffer[100];
-			int32 recvLen = ::recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
+			
+			//int32 recvLen = ::recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
+			int32 recvLen = ::recvfrom(listenSocket, recvBuffer, sizeof(recvBuffer), 0, (SOCKADDR*)&clientAddr, &addrLen);
 			if (recvLen <= 0)
 				return 0;
 
 			cout << "Recv Data: " << recvBuffer << endl;
 			cout << "Recv Data Len: " << recvLen << endl;
 
-			int32 resultCode = ::send(clientSocket, recvBuffer, recvLen, 0);
+			/*int32 resultCode = ::send(clientSocket, recvBuffer, recvLen, 0);
 			if (resultCode == SOCKET_ERROR)
-				return 0;
+				return 0;*/
 		}
 	}
 
