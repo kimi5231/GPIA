@@ -1,6 +1,5 @@
 #pragma once
 
-#include <windows.h>
 #include <iostream>
 #include <vector>
 #include <list>
@@ -17,3 +16,9 @@
 #include "CoreGlobal.h"
 
 using namespace std;
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <windows.h>
+
+#pragma comment(lib, "ws2_32.lib")
