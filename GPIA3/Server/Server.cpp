@@ -15,6 +15,37 @@ int main()
 	if (listenSocket == INVALID_SOCKET)
 		return 0;
 
+	/*
+
+	// 소켓 옵션
+	// - 1) level (SOL_SOCKET, IPPROTO_IP, IPPROTO_TCP)
+	// - 2) optname
+	// - 3) optval
+
+	// SO_KEEPALIVE
+	bool enable = true;
+	::setsockopt(listenSocket, SOL_SOCKET, SO_KEEPALIVE, (char*)&enable, sizeof(enable));
+
+	// SO_LINGER = 지연하다
+	// SO_SNDBUF
+	// SO_RCVBUF
+
+	int32 sendBufferSize;
+	int32 optionLen = sizeof(sendBufferSize);
+	::getsockopt(listenSocket, SOL_SOCKET, SO_SNDBUF, (char*)&sendBufferSize, &optionLen);
+	cout << "송신 버퍼 크기: " << sendBufferSize << endl;
+
+	// SO_REUSERADDR
+	{
+		bool enable = true;
+		::setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(enable));
+	}
+
+	//IPPROTO_TCP
+	// TCP_NODELAY = Nagle 알고리즘 작동 여부
+
+	*/
+
 	// 2) 주소/포트 번호 설정 (bind)
 	SOCKADDR_IN serverAddr;
 	::memset(&serverAddr, 0, sizeof(serverAddr));
