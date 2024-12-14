@@ -3,97 +3,53 @@
 
 int main()
 {
-	WSADATA wsaData;
-	if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
-		return 0;
+	SocketUtils::Init();
 
-	// 1) 소켓 생성
-	// IPv4, TCP
-	//SOCKET listenSocket = ::socket(AF_INET, SOCK_STREAM, 0);
-	// UDP
-	SOCKET listenSocket = ::socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	SOCKET listenSocket = ::socket(AF_INET, SOCK_STREAM, 0);
 	if (listenSocket == INVALID_SOCKET)
 		return 0;
 
-	/*
-
-	// 소켓 옵션
-	// - 1) level (SOL_SOCKET, IPPROTO_IP, IPPROTO_TCP)
-	// - 2) optname
-	// - 3) optval
-
-	// SO_KEEPALIVE
-	bool enable = true;
-	::setsockopt(listenSocket, SOL_SOCKET, SO_KEEPALIVE, (char*)&enable, sizeof(enable));
-
-	// SO_LINGER = 지연하다
-	// SO_SNDBUF
-	// SO_RCVBUF
-
-	int32 sendBufferSize;
-	int32 optionLen = sizeof(sendBufferSize);
-	::getsockopt(listenSocket, SOL_SOCKET, SO_SNDBUF, (char*)&sendBufferSize, &optionLen);
-	cout << "송신 버퍼 크기: " << sendBufferSize << endl;
-
-	// SO_REUSERADDR
-	{
-		bool enable = true;
-		::setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(enable));
-	}
-
-	//IPPROTO_TCP
-	// TCP_NODELAY = Nagle 알고리즘 작동 여부
-
-	*/
-
-	// 2) 주소/포트 번호 설정 (bind)
-	SOCKADDR_IN serverAddr;
-	::memset(&serverAddr, 0, sizeof(serverAddr));
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = ::htonl(INADDR_ANY);
-	serverAddr.sin_port = ::htons(7777);
-
-	if(::bind(listenSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
+	u_long on = 1;
+	if (::ioctlsocket(listenSocket, FIONBIO, &on) == INVALID_SOCKET)
 		return 0;
 
-	// 3) listen
-	/*if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR)
-		return 0;*/
+	SocketUtils::SetReuseAddress(listenSocket, true);
 
-	// 4) accept
+	if (SocketUtils::BindAnyAddress(listenSocket, 7777) == false)
+		return 0;
+
+	if (SocketUtils::Listen(listenSocket) == false)
+		return 0;
+
 	while (true)
 	{
 		SOCKADDR_IN clientAddr;
-		::memset(&clientAddr, 0, sizeof(clientAddr));
 		int32 addrLen = sizeof(clientAddr);
 
-		/*SOCKET clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
+		SOCKET clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
 		if (clientSocket == INVALID_SOCKET)
-			return 0;*/
+		{
+			if (::WSAGetLastError() == WSAEWOULDBLOCK)
+				continue;
+		}
+		cout << "Client Conneted!" << endl;
 
-		/*char ip[16];
-		::inet_ntop(AF_INET, &clientAddr.sin_addr, ip, sizeof(ip));
-		cout << "Client Connected! IP = " << ip << endl;*/
-
-		// 5) 통신
-		//while(true)
+		while (true)
 		{
 			char recvBuffer[100];
-			
-			//int32 recvLen = ::recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
-			int32 recvLen = ::recvfrom(listenSocket, recvBuffer, sizeof(recvBuffer), 0, (SOCKADDR*)&clientAddr, &addrLen);
-			if (recvLen <= 0)
-				return 0;
+			int32 recvLen = ::recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
+			if (recvLen == SOCKET_ERROR)
+			{
+				if (::WSAGetLastError() == WSAEWOULDBLOCK)
+					continue;
 
-			cout << "Recv Data: " << recvBuffer << endl;
-			cout << "Recv Data Len: " << recvLen << endl;
+				break;
+			}
 
-			/*int32 resultCode = ::send(clientSocket, recvBuffer, recvLen, 0);
-			if (resultCode == SOCKET_ERROR)
-				return 0;*/
+			cout << "Recv Data = " << recvBuffer << endl;
+			cout << "Recv Data Len = " << recvLen << endl;
 		}
 	}
 
-	::closesocket(listenSocket);
-	::WSACleanup();
+	SocketUtils::Clear();
 }
