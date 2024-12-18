@@ -8,6 +8,7 @@ struct Session
 	SOCKET socket = INVALID_SOCKET;
 	char recvBuffer[BUF_SIZE]{};
 	int32 recvBytes = 0;
+	WSAOVERLAPPED overlapped{};
 };
 
 int main()
@@ -30,67 +31,56 @@ int main()
 	if (SocketUtils::Listen(listenSocket) == false)
 		return 0;
 
-	vector<WSAEVENT> wsaEvents;
-	vector<Session> sessions;
-	sessions.reserve(100);
-
-	WSAEVENT listenEvent = ::WSACreateEvent();
-	wsaEvents.push_back(listenEvent);
-	sessions.push_back(Session{ listenSocket });
-
-	if (::WSAEventSelect(listenSocket, listenEvent, FD_ACCEPT | FD_CLOSE) == SOCKET_ERROR)
-		return 0;
-
 	while (true)
 	{
-		int32 index = ::WSAWaitForMultipleEvents(wsaEvents.size(), &wsaEvents[0], FALSE, WSA_INFINITE, FALSE);
-		if (index == WSA_WAIT_FAILED)
-			continue;
+		SOCKADDR_IN clientAddr;
+		int32 addrLen = sizeof(clientAddr);
 
-		index -= WSA_WAIT_EVENT_0;
-		
-		WSANETWORKEVENTS networkEvents;
-		if (::WSAEnumNetworkEvents(sessions[index].socket, wsaEvents[index], &networkEvents) == SOCKET_ERROR)
-			continue;
-
-		if (networkEvents.lNetworkEvents & FD_ACCEPT)
+		SOCKET clientSocket;
+		while (true)
 		{
-			if (networkEvents.iErrorCode[FD_ACCEPT_BIT] != 0)
-				continue;
-
-			SOCKADDR_IN clientAddr;
-			int32 addrLen = sizeof(clientAddr);
-
-			SOCKET clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
+			clientSocket = ::accept(listenSocket, (SOCKADDR*)&clientAddr, &addrLen);
 			if (clientSocket != INVALID_SOCKET)
-			{
-				cout << "Client Connected!" << endl;
+				break;
 
-				WSAEVENT clientEvent = ::WSACreateEvent();
-				wsaEvents.push_back(clientEvent);
-				sessions.push_back(Session{ clientSocket });
-				if (::WSAEventSelect(clientSocket, clientEvent, FD_READ | FD_WRITE | FD_CLOSE) == SOCKET_ERROR)
-					return 0;
-			}
-		}
-		
-		if (networkEvents.lNetworkEvents & FD_READ)
-		{
-			if (networkEvents.iErrorCode[FD_ACCEPT_BIT] != 0)
+			if (::WSAGetLastError() == WSAEWOULDBLOCK)
 				continue;
 
-			Session& s = sessions[index];
+			return 0;
+		}
 
-			int32 recvLen = ::recv(s.socket, s.recvBuffer, BUF_SIZE, 0);
-			if (recvLen == SOCKET_ERROR && ::WSAGetLastError() != WSAEWOULDBLOCK)
+		Session session = Session{ clientSocket };
+		WSAEVENT wsaEvent = ::WSACreateEvent();
+		session.overlapped.hEvent = wsaEvent;
+
+		cout << "Client Connected!" << endl;
+
+		while (true)
+		{
+			WSABUF wsaBuf;
+			wsaBuf.buf = session.recvBuffer;
+			wsaBuf.len = BUF_SIZE;
+
+			DWORD recvLen = 0;
+			DWORD flags = 0;
+			if (::WSARecv(clientSocket, &wsaBuf, 1, &recvLen, &flags, &session.overlapped, nullptr) == SOCKET_ERROR)
 			{
-				if (recvLen <= 0)
-					continue;
+				if (::WSAGetLastError() == WSA_IO_PENDING)
+				{
+					::WSAWaitForMultipleEvents(1, &wsaEvent, TRUE, WSA_INFINITE, FALSE);
+					::WSAGetOverlappedResult(session.socket, &session.overlapped, &recvLen, FALSE, &flags);
+				}
+				else
+				{
+					break;
+				}
 			}
 
-			cout << "recv Data = " << s.recvBuffer << endl;
-			cout << "recvLen = " << recvLen << endl;
+			cout << "Data Recv = " << session.recvBuffer << endl;
+			cout << "Data Recv Len = " << recvLen << endl;
 		}
+
+		::WSACloseEvent(wsaEvent);
 	}
 
 	SocketUtils::Clear();
