@@ -17,6 +17,7 @@ struct IocpEvent : public OVERLAPPED
 	void		Init();
 
 	EventType	type;
-	Session* session = nullptr;
+	IocpObjectRef owner = nullptr;
+	SessionRef session = nullptr;
 };
 
