@@ -1,5 +1,7 @@
 #pragma once
 
+using namespace std;
+
 #include <iostream>
 #include <vector>
 #include <list>
@@ -21,7 +23,6 @@
 #include "CoreGlobal.h"
 #include "SocketUtils.h"
 #include "SendBuffer.h"
-
-using namespace std;
+#include "Session.h"
 
 #pragma comment(lib, "ws2_32.lib")

@@ -11,6 +11,7 @@ public:
 	int32 Capacity() { return static_cast<int32>(_buffer.size()); }
 
 	void CopyData(void* data, int32 len);
+	void Close(uint32 writeSize);
 
 private:
 	std::vector<BYTE>	_buffer;

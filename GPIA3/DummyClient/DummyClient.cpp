@@ -2,10 +2,11 @@
 #include "ThreadManager.h"
 #include "Service.h"
 #include "Session.h"
+#include "ClientPacketHandler.h"
 
 char sendData[] = "Hello World";
 
-class ServerSession : public Session
+class ServerSession : public PacketSession
 {
 public:
 	~ServerSession()
@@ -22,17 +23,11 @@ public:
 		Send(sendBuffer);
 	}
 
-	virtual int32 OnRecv(BYTE* buffer, int32 len) override
+	virtual void OnRecvPacket(BYTE* buffer, int32 len) override
 	{
 		cout << "OnRecv Len = " << len << endl;
 
-		this_thread::sleep_for(0.1s);
-
-		SendBufferRef sendBuffer = make_shared<SendBuffer>(4096);
-		sendBuffer->CopyData(sendData, sizeof(sendData));
-		Send(sendBuffer);
-
-		return len;
+		ClientPacketHandler::HandlePacket(buffer, len);
 	}
 
 	virtual void OnSend(int32 len) override
