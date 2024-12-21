@@ -69,7 +69,7 @@ void Listener::Dispatch(IocpEvent* acceptEvent, int32 numOfBytes)
 
 void Listener::RegisterAccept(IocpEvent* acceptEvent)
 {
-	SessionRef session = make_shared<Session>();
+	SessionRef session = _service->CreateSession();
 
 	acceptEvent->Init();
 	acceptEvent->session = session;
@@ -105,10 +105,7 @@ void Listener::ProcessAccept(IocpEvent* acceptEvent)
 	}
 
 	session->SetNetAddress(NetAddress(sockAddress));
-
-	cout << "Client Connected!" << endl;
-
-	// TODO
+	session->ProcessConnect();
 
 	RegisterAccept(acceptEvent);
 }

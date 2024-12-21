@@ -19,5 +19,7 @@ struct IocpEvent : public OVERLAPPED
 	EventType	type;
 	IocpObjectRef owner = nullptr;
 	SessionRef session = nullptr;
+
+	vector<BYTE> buffer; 
 };
 
