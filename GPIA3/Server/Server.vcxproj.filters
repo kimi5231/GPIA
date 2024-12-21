@@ -5,36 +5,77 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Main">
+      <UniqueIdentifier>{42e14734-7fe5-4ee6-bf33-18387fbcaa91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Protocol">
+      <UniqueIdentifier>{1b2e1719-b625-40de-807b-6da679110a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Protocol\Proto">
+      <UniqueIdentifier>{c708cee9-a0a0-4e5f-9da7-9f29d1496098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Server.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="GameSession.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
     </ClCompile>
     <ClCompile Include="GameSessionManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>소스 파일\Main</Filter>
     </ClCompile>
     <ClCompile Include="ServerPacketHandler.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Enum.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Struct.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="GameSession.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
     </ClInclude>
     <ClInclude Include="GameSessionManager.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>소스 파일\Main</Filter>
     </ClInclude>
     <ClInclude Include="ServerPacketHandler.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Main</Filter>
     </ClInclude>
+    <ClInclude Include="Enum.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Common\protoc-21.12-win64\bin\Enum.proto">
+      <Filter>소스 파일\Protocol\Proto</Filter>
+    </None>
+    <None Include="..\Common\protoc-21.12-win64\bin\Protocol.proto">
+      <Filter>소스 파일\Protocol\Proto</Filter>
+    </None>
+    <None Include="..\Common\protoc-21.12-win64\bin\Struct.proto">
+      <Filter>소스 파일\Protocol\Proto</Filter>
+    </None>
+    <None Include="..\Common\protoc-21.12-win64\bin\GenPackets.bat">
+      <Filter>소스 파일\Protocol</Filter>
+    </None>
   </ItemGroup>
 </Project>
