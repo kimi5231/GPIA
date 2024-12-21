@@ -36,6 +36,21 @@
     <Filter Include="소스 파일\03. Objects">
       <UniqueIdentifier>{06c691e8-de2c-4a52-bbdf-0b5d2299a496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Objects\Game">
+      <UniqueIdentifier>{6c5d99d6-23ee-4bfd-a91f-97d24c3e1ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Creature">
+      <UniqueIdentifier>{4f5160f0-cf77-45b1-8c2e-ea5e3a496997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Effect">
+      <UniqueIdentifier>{bcfcb3b5-1492-4734-8e3f-cbf0b95fb079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Projectile">
+      <UniqueIdentifier>{41a43446-c340-43ee-bfa8-003ff6a328e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Unreal">
+      <UniqueIdentifier>{c857cabd-ffa6-4c28-b28e-cd6dd906b599}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Zelda.h">
@@ -77,9 +92,6 @@
     <ClInclude Include="Values.h">
       <Filter>소스 파일\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>소스 파일\05. Component</Filter>
     </ClInclude>
@@ -101,20 +113,8 @@
     <ClInclude Include="Flipbook.h">
       <Filter>소스 파일\04. Resources</Filter>
     </ClInclude>
-    <ClInclude Include="FlipbookActor.h">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>소스 파일\01. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteActor.h">
-      <Filter>소스 파일\03. Objects</Filter>
     </ClInclude>
     <ClInclude Include="Panel.h">
       <Filter>소스 파일\06. UI</Filter>
@@ -161,8 +161,41 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>소스 파일\05. Component</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>소스 파일\03. Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="HitEffect.h">
+      <Filter>소스 파일\03. Objects\Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>소스 파일\03. Objects\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipbookActor.h">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClInclude>
     <ClInclude Include="TilemapActor.h">
-      <Filter>소스 파일\03. Objects</Filter>
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>소스 파일\03. Objects\Game\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +230,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>소스 파일\99. Headers</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
       <Filter>소스 파일\05. Component</Filter>
     </ClCompile>
@@ -221,20 +251,8 @@
     <ClCompile Include="Flipbook.cpp">
       <Filter>소스 파일\04. Resources</Filter>
     </ClCompile>
-    <ClCompile Include="FlipbookActor.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>소스 파일\01. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteActor.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
     </ClCompile>
     <ClCompile Include="Panel.cpp">
       <Filter>소스 파일\06. UI</Filter>
@@ -281,8 +299,41 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>소스 파일\05. Component</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>소스 파일\03. Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="HitEffect.cpp">
+      <Filter>소스 파일\03. Objects\Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>소스 파일\03. Objects\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookActor.cpp">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClCompile>
     <ClCompile Include="TilemapActor.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
+      <Filter>소스 파일\03. Objects\Unreal</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>소스 파일\03. Objects\Game\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -119,9 +119,6 @@
     <ClInclude Include="Valus.h">
       <Filter>소스 파일\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>소스 파일\03. Objects</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteActor.h">
       <Filter>소스 파일\03. Objects\Unreal</Filter>
     </ClInclude>
@@ -182,6 +179,9 @@
     <ClInclude Include="Sound.h">
       <Filter>소스 파일\04. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\03. Objects\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GPIA2.rc">
@@ -235,9 +235,6 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>소스 파일\01. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\03. Objects</Filter>
     </ClCompile>
     <ClCompile Include="SpriteActor.cpp">
       <Filter>소스 파일\03. Objects\Unreal</Filter>
@@ -295,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>소스 파일\04. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\03. Objects\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
