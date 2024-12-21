@@ -20,6 +20,7 @@
 #include "CoreTLS.h"
 #include "CoreGlobal.h"
 #include "SocketUtils.h"
+#include "SendBuffer.h"
 
 using namespace std;
 

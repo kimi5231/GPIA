@@ -1,51 +1,76 @@
 ﻿#include "pch.h"
+#include "ThreadManager.h"
+#include "Service.h"
+#include "Session.h"
+
+char sendData[] = "Hello World";
+
+class ServerSession : public Session
+{
+public:
+	~ServerSession()
+	{
+		cout << "~ServerSession" << endl;
+	}
+
+	virtual void OnConnected() override
+	{
+		cout << "Connected To Server" << endl;
+
+		SendBufferRef sendBuffer = make_shared<SendBuffer>(4096);
+		sendBuffer->CopyData(sendData, sizeof(sendData));
+		Send(sendBuffer);
+	}
+
+	virtual int32 OnRecv(BYTE* buffer, int32 len) override
+	{
+		cout << "OnRecv Len = " << len << endl;
+
+		this_thread::sleep_for(0.1s);
+
+		SendBufferRef sendBuffer = make_shared<SendBuffer>(4096);
+		sendBuffer->CopyData(sendData, sizeof(sendData));
+		Send(sendBuffer);
+
+		return len;
+	}
+
+	virtual void OnSend(int32 len) override
+	{
+		cout << "OnSend Len = " << len << endl;
+	}
+
+	virtual void OnDisconnected() override
+	{
+		cout << "Disconnected" << endl;
+	}
+};
 
 int main()
 {
+	this_thread::sleep_for(1s);
+
 	SocketUtils::Init();
 
-	SOCKET clientSocket = ::socket(AF_INET, SOCK_STREAM, 0);
-	if (clientSocket == INVALID_SOCKET)
-		return 0;
+	ClientServiceRef service = make_shared<ClientService>(
+		NetAddress(L"127.0.0.1", 7777),
+		make_shared<IocpCore>(),
+		[]() { return make_shared<ServerSession>(); }, // TODO : SessionManager 등
+		5);
 
-	u_long on = 1;
-	if (::ioctlsocket(clientSocket, FIONBIO, &on) == INVALID_SOCKET)
-		return 0;
+	assert(service->Start());
 
-	SOCKADDR_IN serverAddr;
-	::memset(&serverAddr, 0, sizeof(serverAddr));
-	serverAddr.sin_family = AF_INET;
-	::inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
-	serverAddr.sin_port = ::htons(7777);
-
-	while (true)
+	for (int32 i = 0; i < 5; i++)
 	{
-		if (::connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
-		{
-			if (::WSAGetLastError() == WSAEWOULDBLOCK)
-				continue;
-
-			// 이미 연결된 상태
-			if (::WSAGetLastError() == WSAEISCONN)
-				break;
-		}
+		GThreadManager->Launch([=]()
+			{
+				while (true)
+				{
+					service->GetIocpCore()->Dispatch();
+				}
+			});
 	}
 
-	while (true)
-	{
-		char sendBuffer[100] = "Hello I am Client!";
-		int32 sendLen = sizeof(sendBuffer);
-
-		if (::send(clientSocket, sendBuffer, sendLen, 0) == SOCKET_ERROR)
-		{
-			if (::WSAGetLastError() == WSAEWOULDBLOCK)
-				continue;
-		}
-
-		cout << "Send Data! Len = " << sendLen << endl;
-
-		this_thread::sleep_for(1s);
-	}
-
+	GThreadManager->Join();
 	SocketUtils::Clear();
 }
