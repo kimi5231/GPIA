@@ -20,6 +20,7 @@
 #include "Tilemap.h"
 #include "SoundManager.h"
 #include "Sound.h"
+#include "Monster.h"
 
 DevScene::DevScene()
 {
@@ -41,8 +42,8 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PlayerLeft", L"Sprite\\Player\\PlayerLeft.bmp", RGB(128, 128, 128));
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PlayerRight", L"Sprite\\Player\\PlayerRight.bmp", RGB(128, 128, 128));
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Snake", L"Sprite\\Monster\\Snake.bmp", RGB(128, 128, 128));
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Hit", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TileO", GET_SINGLE(ResourceManager)->GetTexture(L"Tile"), 0, 0, 48, 48);
@@ -54,6 +55,66 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Exit_Off", GET_SINGLE(ResourceManager)->GetTexture(L"Exit"), 0, 0, 150, 150);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Exit_On", GET_SINGLE(ResourceManager)->GetTexture(L"Exit"), 150, 0, 150, 150);
 
+	LoadMap();
+	LoadPlayer();
+	LoadMonster();
+	LoadProjectile();
+	LoadEffect();
+	LoadTilemap();
+	
+	SpawnObject<Player>(Vec2Int{ 5, 5 });
+
+	SpawnObject<Monster>(Vec2Int{ 7, 7 });
+
+	/*GET_SINGLE(ResourceManager)->LoadSound(L"BGM", L"Sound\\BGM.wav");
+	{
+		Sound* sound = GET_SINGLE(ResourceManager)->GetSound(L"BGM");
+		sound->Play(true);
+	}*/
+
+	GET_SINGLE(ResourceManager)->LoadSound(L"Attack", L"Sound\\Sword.wav");
+
+	Super::Init();
+}
+
+void DevScene::Update()
+{
+	Super::Update();
+
+	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+
+	/*if (GET_SINGLE(InputManager)->GetButton(KeyType::Q))
+	{
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
+	}
+	else if (GET_SINGLE(InputManager)->GetButton(KeyType::E))
+	{
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
+	}*/
+}
+
+void DevScene::Render(HDC hdc)
+{
+	Super::Render(hdc);
+
+}
+
+void DevScene::LoadMap()
+{
+	Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Stage01");
+
+	SpriteActor* background = new SpriteActor();
+	background->SetSprite(sprite);
+	background->SetLayer(LAYER_BACKGROUND);
+	const Vec2Int size = sprite->GetSize();
+	background->SetPos(Vec2(size.x / 2, size.y / 2));
+
+	AddActor(background);
+	
+}
+
+void DevScene::LoadPlayer()
+{
 	// IDLE
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerUp");
@@ -100,116 +161,142 @@ void DevScene::Init()
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerUp");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_AttackUp");
-		fb->SetInfo({ texture, L"FB_MoveUp", {200, 200}, 0, 7, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_MoveUp", {200, 200}, 0, 7, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerDown");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_AttackDown");
-		fb->SetInfo({ texture, L"FB_MoveDown", {200, 200}, 0, 7, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_MoveDown", {200, 200}, 0, 7, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerLeft");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_AttackLeft");
-		fb->SetInfo({ texture, L"FB_MoveLeft", {200, 200}, 0, 7, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_MoveLeft", {200, 200}, 0, 7, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerRight");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_AttackRight");
-		fb->SetInfo({ texture, L"FB_MoveRight", {200, 200}, 0, 7, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_MoveRight", {200, 200}, 0, 7, 3, 0.5f, false });
 	}
-
+	// BOW
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Stage01");
-		
-		SpriteActor* background = new SpriteActor();
-		background->SetSprite(sprite);
-		background->SetLayer(LAYER_BACKGROUND);
-		const Vec2Int size = sprite->GetSize();
-		background->SetPos(Vec2(size.x / 2, size.y / 2));
-
-		AddActor(background);
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerUp");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_BowUp");
+		fb->SetInfo({ texture, L"FB_BowUp", {200, 200}, 0, 7, 5, 0.5f, false });
 	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerDown");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_BowDown");
+		fb->SetInfo({ texture, L"FB_BowDown", {200, 200}, 0, 7, 5, 0.5f, false });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerLeft");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_BowLeft");
+		fb->SetInfo({ texture, L"FB_BowLeft", {200, 200}, 0, 7, 5, 0.5f, false });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerRight");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_BowRight");
+		fb->SetInfo({ texture, L"FB_BowRight", {200, 200}, 0, 7, 5, 0.5f, false });
+	}
+	// STAFF
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerUp");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_StaffUp");
+		fb->SetInfo({ texture, L"FB_StaffUp", {200, 200}, 0, 10, 6, 0.5f, false });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerDown");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_StaffDown");
+		fb->SetInfo({ texture, L"FB_StaffDown", {200, 200}, 0, 10, 6, 0.5f, false });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerLeft");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_StaffLeft");
+		fb->SetInfo({ texture, L"FB_StaffLeft", {200, 200}, 0, 10, 6, 0.5f, false });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"PlayerRight");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_StaffRight");
+		fb->SetInfo({ texture, L"FB_StaffRight", {200, 200}, 0, 10, 6, 0.5f, false });
+	}
+}
+
+void DevScene::LoadMonster()
+{
+	// MOVE
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Snake");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_SnakeUp");
+		fb->SetInfo({ texture, L"FB_SnakeUp", {100, 100}, 0, 3, 3, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Snake");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_SnakeDown");
+		fb->SetInfo({ texture, L"FB_SnakeDown", {100, 100}, 0, 3, 0, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Snake");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_SnakeLeft");
+		fb->SetInfo({ texture, L"FB_SnakeLeft", {100, 100}, 0, 3, 2, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Snake");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_SnakeRight");
+		fb->SetInfo({ texture, L"FB_SnakeRight", {100, 100}, 0, 3, 1, 0.5f });
+	}
+}
+
+void DevScene::LoadProjectile()
+{
+	// MOVE
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Arrow");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_ArrowUp");
+		fb->SetInfo({ texture, L"FB_ArrowUp", {100, 100}, 0, 0, 3, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Arrow");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_ArrowDown");
+		fb->SetInfo({ texture, L"FB_ArrowDown", {100, 100}, 0, 0, 0, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Arrow");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_ArrowLeft");
+		fb->SetInfo({ texture, L"FB_ArrowLeft", {100, 100}, 0, 0, 1, 0.5f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Arrow");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_ArrowRight");
+		fb->SetInfo({ texture, L"FB_ArrowRight", {100, 100}, 0, 0, 2, 0.5f });
+	}
+}
+
+void DevScene::LoadEffect()
+{
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Hit");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_Hit");
+		fb->SetInfo({ texture, L"FB_Hit", {50, 47}, 0, 5, 0, 0.5f, false });
+	}
+}
+
+void DevScene::LoadTilemap()
+{
 	
+	TilemapActor* actor = new TilemapActor();
+	AddActor(actor);
+
+	_tilemapActor = actor;
 	{
-		Player* player = new Player();
-		//{
-		//	BoxCollider* collider = new BoxCollider();
-		//	//collider->SetRadius(100);
-		//	//collider->SetCollisionFlag(1 << CLT_GROUND);
-		//	collider->ResetCollisionFlag();
-		//	collider->AddCollisionFlagLayer(CLT_GROUND);
-		//	collider->AddCollisionFlagLayer(CLT_WALL);
-		//	collider->AddCollisionFlagLayer(CLT_OBJECT);
+		auto* tm = GET_SINGLE(ResourceManager)->CreateTilemap(L"Tilemap_01");
+		tm->SetMapSize({ 63, 43 });
+		tm->SetTileSize(48);
 
-		//	// << >>
-		//	// &
-		//	// |
-		//	// ~
-		//	uint32 flag = 0;
-		//	// 특정 비트 켜기
-		//	flag = flag | (1 << CLT_GROUND);
-		//	// 특정 비트 끄기
-		//	//flag = flag & ~(1 << CLT_GROUND);
-		//	// 비트 체크
-		//	//bool ground = flag & (1 << CLT_GROUND);
-		//	// 전체 켜기
-		//	//flag = ~(0);
-
-		//	collider->SetSize({ 100, 100 });
-		//	player->AddComponent(collider);
-		//	GET_SINGLE(CollisionManager)->AddCollider(collider);
-		//}
-		AddActor(player);
-	}
-
-	{
-		TilemapActor* actor = new TilemapActor();
-		AddActor(actor);
-
-		_tilemapActor = actor;
-		{
-			auto* tm = GET_SINGLE(ResourceManager)->CreateTilemap(L"Tilemap_01");
-			tm->SetMapSize({ 63, 43 });
-			tm->SetTileSize(48);
-
-			GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
-
-			_tilemapActor->SetTilemap(tm);
-			_tilemapActor->SetShowDebug(false);
-		}
-	}
-
-	/*GET_SINGLE(ResourceManager)->LoadSound(L"BGM", L"Sound\\BGM.wav");
-	{
-		Sound* sound = GET_SINGLE(ResourceManager)->GetSound(L"BGM");
-		sound->Play(true);
-	}*/
-
-	GET_SINGLE(ResourceManager)->LoadSound(L"Attack", L"Sound\\Sword.wav");
-
-	Super::Init();
-}
-
-void DevScene::Update()
-{
-	Super::Update();
-
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-
-	/*if (GET_SINGLE(InputManager)->GetButton(KeyType::Q))
-	{
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
-	}
-	else if (GET_SINGLE(InputManager)->GetButton(KeyType::E))
-	{
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
-	}*/
-}
-
-void DevScene::Render(HDC hdc)
-{
-	Super::Render(hdc);
-
+		_tilemapActor->SetTilemap(tm);
+		_tilemapActor->SetShowDebug(false);
+	}
 }
 
 bool DevScene::CanGo(Vec2Int cellPos)
@@ -223,6 +310,9 @@ bool DevScene::CanGo(Vec2Int cellPos)
 
 	Tile* tile = tm->GetTileAt(cellPos);
 	if (tile == nullptr)
+		return false;
+
+	if (GetCreatureAt(cellPos) != nullptr)
 		return false;
 
 	return tile->value != 1;

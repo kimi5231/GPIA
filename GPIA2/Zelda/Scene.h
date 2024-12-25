@@ -1,6 +1,7 @@
 #pragma once
 
 class Actor;
+class Creature;
 class UI;
 
 class Scene
@@ -15,6 +16,8 @@ public:
 
 	void AddActor(Actor* actor);
 	void RemoveActor(Actor* actor);
+	
+	Creature* GetCreatureAt(Vec2Int cellPos);
 
 public:
 	vector<Actor*> _actors[LAYER_MAXCOUNT];
