@@ -89,3 +89,24 @@ void GameObject::SetCellPos(Vec2Int cellPos, bool teleport)
 	if (teleport)
 		_pos = _destPos;
 }
+
+Vec2Int GameObject::GetFrontCellPos()
+{
+	switch (_dir)
+	{
+	case DIR_DOWN:
+		return _cellPos + Vec2Int{ 0, 1 };
+		break;
+	case DIR_LEFT:
+		return _cellPos + Vec2Int{ -1, 0 };
+		break;
+	case DIR_RIGHT:
+		return _cellPos + Vec2Int{ 1, 0 };
+		break;
+	case DIR_UP:
+		return _cellPos + Vec2Int{ 0, -1 };
+		break;
+	}
+
+	return _cellPos;
+}

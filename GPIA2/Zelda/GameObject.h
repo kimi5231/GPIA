@@ -26,6 +26,7 @@ public:
 	bool CanGo(Vec2Int cellPos);
 	void SetCellPos(Vec2Int cellPos, bool teleport = false);
 	Vec2Int GetCellPos() { return _cellPos; }
+	Vec2Int GetFrontCellPos();
 
 protected:
 	Vec2Int _cellPos = {};
