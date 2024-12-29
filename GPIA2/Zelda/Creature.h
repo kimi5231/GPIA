@@ -3,7 +3,7 @@
 
 class Creature : public GameObject
 {
-	using Super = FlipbookActor;
+	using Super = GameObject;
 public:
 	Creature();
 	virtual ~Creature() override;

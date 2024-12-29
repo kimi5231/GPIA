@@ -19,13 +19,11 @@ void Creature::BeginPlay()
 void Creature::Tick()
 {
 	Super::Tick();
-
 }
 
 void Creature::Render(HDC hdc)
 {
 	Super::Render(hdc);
-
 }
 
 void Creature::OnDamaged(Creature* attacker)

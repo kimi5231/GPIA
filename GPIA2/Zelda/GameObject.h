@@ -24,6 +24,8 @@ public:
 
 	bool HasReachedDest();
 	bool CanGo(Vec2Int cellPos);
+	Dir GetLookAtDir(Vec2Int cellPos);
+
 	void SetCellPos(Vec2Int cellPos, bool teleport = false);
 	Vec2Int GetCellPos() { return _cellPos; }
 	Vec2Int GetFrontCellPos();

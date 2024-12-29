@@ -64,25 +64,11 @@ void Player::BeginPlay()
 void Player::Tick()
 {
 	Super::Tick();
-
-	switch (_state)
-	{
-	case ObjectState::Idle:
-		TickIdle();
-		break;
-	case ObjectState::Move:
-		TickMove();
-		break;
-	case ObjectState::Skill:
-		TickSkill();
-		break;
-	}
 }
 
 void Player::Render(HDC hdc)
 {
 	Super::Render(hdc);
-
 }
 
 void Player::TickIdle()
