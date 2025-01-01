@@ -14,6 +14,9 @@ void ClientPacketHandler::HandlePacket(BYTE* buffer, int32 len)
 	case S_TEST:
 		Handle_S_TEST(buffer, len);
 		break;
+	case S_EnterGame:
+		Handle_S_EnterGame(buffer, len);
+		break;
 	}
 }
 
@@ -38,25 +41,35 @@ struct S_TEST
 
 void ClientPacketHandler::Handle_S_TEST(BYTE* buffer, int32 len)
 {
-	BufferReader br(buffer, len);
+	PacketHeader* header = (PacketHeader*)buffer;
+	//uint16 id = header->id;
+	uint16 size = header->size;
 
-	PacketHeader header;
-	br >> header;
+	Protocol::S_TEST pkt;
+	pkt.ParseFromArray(&header[1], size - sizeof(PacketHeader));
 
-	uint64 id;
-	uint32 hp;
-	uint16 attack;
-	br >> id >> hp >> attack;
+	uint64 id = pkt.id();
+	uint32 hp = pkt.hp();
+	uint16 attack = pkt.attack();
 
 	//cout << "ID: " << id << " HP : " << hp << " ATT : " << attack << endl;
 
-	vector<BuffData> buffs;
-	uint16 buffCount;
-	br >> buffCount;
-
-	buffs.resize(buffCount);
-	for (int32 i = 0; i < buffCount; i++)
+	for (int32 i = 0; i < pkt.buffs_size(); i++)
 	{
-		br >> buffs[i].buffId >> buffs[i].remainTime;
+		const Protocol::BuffData& data = pkt.buffs(i);
+		//cout << "BuffInfo : " << data.buffid() << " " << data.remaintime() << endl;
 	}
+}
+
+void ClientPacketHandler::Handle_S_EnterGame(BYTE* buffer, int32 len)
+{
+	PacketHeader* header = (PacketHeader*)buffer;
+	//uint16 id = header->id;
+	uint16 size = header->size;
+
+	Protocol::S_EnterGame pkt;
+	pkt.ParseFromArray(&header[1], size - sizeof(PacketHeader));
+
+	bool success = pkt.success();
+	uint64 accountId = pkt.accountid();
 }

@@ -41,3 +41,13 @@ SendBufferRef ServerPacketHandler::Make_S_TEST(uint64 id, uint32 hp, uint16 atta
 
 	return sendBuffer;
 }
+
+SendBufferRef ServerPacketHandler::Make_S_EnterGame()
+{
+	Protocol::S_EnterGame pkt;
+
+	pkt.set_success(true);
+	pkt.set_accountId(0);
+
+	return MakeSendBuffer(pkt, S_EnterGame);
+}
