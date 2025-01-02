@@ -19,9 +19,21 @@
     <ClCompile Include="List.cpp">
       <Filter>소스 파일\DataStructure</Filter>
     </ClCompile>
+    <ClCompile Include="Array.cpp">
+      <Filter>소스 파일\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>소스 파일\DataStructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
+      <Filter>소스 파일\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>소스 파일\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
       <Filter>소스 파일\DataStructure</Filter>
     </ClInclude>
   </ItemGroup>

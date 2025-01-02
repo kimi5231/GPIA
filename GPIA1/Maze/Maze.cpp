@@ -1,17 +1,25 @@
 ﻿#include <iostream>
-#include "List.h"
+#include "Array.h"
+#include "Vector.h"
 
 int main()
 {
-    List li;
+	Array arr(100);
 
-    li.AddAtTail(1);
-    Node* node = li.AddAtTail(2);
-    li.AddAtTail(3);
+	arr.push_back(1);
+	arr.push_back(2);
+	arr.push_back(3);
+	arr.push_back(4);
 
-    li.Print();
+	arr[1] = 2;
 
-    li.Remove(node);
+////////////////////////////////////////
 
-    li.Print();
+	Vector v;
+
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+
+	int a = v[1];
 }
