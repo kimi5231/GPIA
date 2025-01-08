@@ -11,6 +11,9 @@
     <Filter Include="소스 파일\DataStructure">
       <UniqueIdentifier>{ddafe477-8aad-4ee0-bebd-c9db911ea663}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Board">
+      <UniqueIdentifier>{d623a14b-79f1-48ce-ae14-f76a29818ccc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maze.cpp">
@@ -25,6 +28,18 @@
     <ClCompile Include="Vector.cpp">
       <Filter>소스 파일\DataStructure</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>소스 파일\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleHelper.cpp">
+      <Filter>소스 파일\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -35,6 +50,21 @@
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>소스 파일\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>소스 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>소스 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>소스 파일\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleHelper.h">
+      <Filter>소스 파일\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

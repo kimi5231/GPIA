@@ -1,25 +1,17 @@
-﻿#include <iostream>
-#include "Array.h"
+﻿#include "pch.h"
 #include "Vector.h"
+#include "Board.h"
+#include "Player.h"
+
+Board board;
+Player player;
 
 int main()
 {
-	Array arr(100);
+	::srand(static_cast<uint32>(time(nullptr)));
 
-	arr.push_back(1);
-	arr.push_back(2);
-	arr.push_back(3);
-	arr.push_back(4);
-
-	arr[1] = 2;
-
-////////////////////////////////////////
-
-	Vector v;
-
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-
-	int a = v[1];
+	while (true)
+	{
+		board.Render();
+	}
 }
