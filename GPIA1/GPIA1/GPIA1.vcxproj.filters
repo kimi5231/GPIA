@@ -27,6 +27,9 @@
     <Filter Include="소스 파일\7">
       <UniqueIdentifier>{66f4ddc4-18a1-4137-9226-c25a3b40daa9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\8">
+      <UniqueIdentifier>{b2dffff2-3049-4f52-9a32-32ba0a5a3dd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2-5. 산술 연산.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="7-7. 템플릿.cpp">
       <Filter>소스 파일\7</Filter>
+    </ClCompile>
+    <ClCompile Include="8-1. 재귀 함수.cpp">
+      <Filter>소스 파일\8</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
