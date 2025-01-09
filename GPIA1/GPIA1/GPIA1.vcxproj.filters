@@ -155,6 +155,9 @@
     <ClCompile Include="7-2. 연결 리스트.cpp">
       <Filter>소스 파일\7</Filter>
     </ClCompile>
+    <ClCompile Include="7-7. 템플릿.cpp">
+      <Filter>소스 파일\7</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-5. Helper.h">

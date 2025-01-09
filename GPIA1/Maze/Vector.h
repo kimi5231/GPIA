@@ -1,10 +1,9 @@
 #pragma once
 #include <assert.h>
 
+template <typename T>
 class Vector
 {
-	using T = Pos;
-
 public:
 	explicit Vector()
 	{
