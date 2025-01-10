@@ -265,7 +265,10 @@
     <ClCompile Include="8-3. 우선순위 큐.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="8-4. 그래프 기초.cpp" />
+    <ClCompile Include="8-4. 그래프 기초.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="8-5. DFS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-5. Helper.h">
