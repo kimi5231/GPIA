@@ -170,6 +170,9 @@
     <ClCompile Include="8-3. 우선순위 큐.cpp">
       <Filter>소스 파일\8</Filter>
     </ClCompile>
+    <ClCompile Include="8-4. 그래프 기초.cpp">
+      <Filter>소스 파일\8</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-5. Helper.h">
