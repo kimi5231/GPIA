@@ -176,6 +176,9 @@
     <ClCompile Include="8-5. DFS.cpp">
       <Filter>소스 파일\8</Filter>
     </ClCompile>
+    <ClCompile Include="8-6. BFS.cpp">
+      <Filter>소스 파일\8</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-5. Helper.h">
