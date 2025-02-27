@@ -157,6 +157,7 @@
     <ClInclude Include="HitEffect.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MyPlayer.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MyPlayer.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />

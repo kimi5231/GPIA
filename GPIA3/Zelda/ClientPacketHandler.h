@@ -9,10 +9,10 @@ enum
 class ClientPacketHandler
 {
 public:
-	static void HandlePacket(BYTE* buffer, int32 len);
+	static void HandlePacket(ServerSessionRef session, BYTE* buffer, int32 len);
 
-	static void Handle_S_TEST(BYTE* buffer, int32 len);
-	static void Handle_S_EnterGame(BYTE* buffer, int32 len);
+	static void Handle_S_TEST(ServerSessionRef session, BYTE* buffer, int32 len);
+	static void Handle_S_EnterGame(ServerSessionRef session, BYTE* buffer, int32 len);
 
 	template<typename T>
 	static SendBufferRef MakeSendBuffer(T& pkt, uint16 pktId)
