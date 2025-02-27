@@ -1,14 +1,7 @@
 #include "pch.h"
 #include "MyPlayer.h"
 #include "InputManager.h"
-#include "TimeManager.h"
-#include "ResourceManager.h"
-#include "Flipbook.h"
 #include "CameraComponent.h"
-#include "SceneManager.h"
-#include "DevScene.h"
-#include "Arrow.h"
-#include "HitEffect.h"
 
 MyPlayer::MyPlayer()
 {
