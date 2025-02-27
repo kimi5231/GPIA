@@ -17,4 +17,3 @@ private:
 	ClientServiceRef _service;
 	ServerSessionRef _session;
 };
-

@@ -20,7 +20,6 @@ void ClientPacketHandler::HandlePacket(BYTE* buffer, int32 len)
 	}
 }
 
-// 패킷 설계 TEMP
 struct BuffData
 {
 	uint64 buffId;
@@ -33,16 +32,12 @@ struct S_TEST
 	uint32 hp;
 	uint16 attack;
 	// 가변 데이터
-	// 1) 문자열 (ex. name)
-	// 2) 그냥 바이트 배열 (ex. 길드 이미지)
-	// 3) 일반 리스트
 	vector<BuffData> buffs;
 };
 
 void ClientPacketHandler::Handle_S_TEST(BYTE* buffer, int32 len)
 {
 	PacketHeader* header = (PacketHeader*)buffer;
-	//uint16 id = header->id;
 	uint16 size = header->size;
 
 	Protocol::S_TEST pkt;
@@ -52,19 +47,15 @@ void ClientPacketHandler::Handle_S_TEST(BYTE* buffer, int32 len)
 	uint32 hp = pkt.hp();
 	uint16 attack = pkt.attack();
 
-	//cout << "ID: " << id << " HP : " << hp << " ATT : " << attack << endl;
-
 	for (int32 i = 0; i < pkt.buffs_size(); i++)
 	{
 		const Protocol::BuffData& data = pkt.buffs(i);
-		//cout << "BuffInfo : " << data.buffid() << " " << data.remaintime() << endl;
 	}
 }
 
 void ClientPacketHandler::Handle_S_EnterGame(BYTE* buffer, int32 len)
 {
 	PacketHeader* header = (PacketHeader*)buffer;
-	//uint16 id = header->id;
 	uint16 size = header->size;
 
 	Protocol::S_EnterGame pkt;

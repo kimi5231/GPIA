@@ -15,17 +15,6 @@ void NetworkManager::Init()
 		1);
 
 	assert(_service->Start());
-
-	/*for (int32 i = 0; i < 5; i++)
-	{
-		GThreadManager->Launch([=]()
-			{
-				while (true)
-				{
-					service->GetIocpCore()->Dispatch();
-				}
-			});
-	}*/
 }
 
 void NetworkManager::Update()

@@ -17,5 +17,3 @@ public:
 	template<typename T>
 	static SendBufferRef MakeSendBuffer(T& pkt, uint16 pktId);
 };
-
-
