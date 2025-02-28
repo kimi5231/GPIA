@@ -15,5 +15,11 @@
 #endif
 
 using GameSessionRef = shared_ptr<class GameSession>;
+using GameRoomRef = std::shared_ptr<class GameRoom>;
+
+using GameObjectRef = std::shared_ptr<class GameObject>;
+using CreatureRef = std::shared_ptr<class Creature>;
+using PlayerRef = std::shared_ptr<class Player>;
+using MonsterRef = std::shared_ptr<class Monster>;
 
 #include "ServerPacketHandler.h"
