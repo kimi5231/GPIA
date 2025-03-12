@@ -15,6 +15,9 @@ public:
 	GameRoomRef GetRoomRef() { return shared_from_this(); }
 
 public:
+	void Handle_C_Move(Protocol::C_Move& pkt);
+
+public:
 	void AddObject(GameObjectRef gameObject);
 	void RemoveObject(uint64 id);
 	void Broadcast(SendBufferRef& sendBuffer);
