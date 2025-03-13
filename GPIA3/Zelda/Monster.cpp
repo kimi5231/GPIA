@@ -45,6 +45,8 @@ void Monster::TickIdle()
 	if (scene == nullptr)
 		return;
 
+	return;
+
 	if (_target == nullptr)
 		_target = scene->FindClosestPlayer(GetCellPos());
 
